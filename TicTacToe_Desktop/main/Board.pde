@@ -92,10 +92,15 @@ public class Board
     }
     return true;
   }
-  public boolean GameOver(){
-    return RowWin(1) || RowWin(2)
-    || ColumnWin(1) || ColumnWin(2)
-    || DiagonalWin(1) || DiagonalWin(2)
-    || BoardFull();
+  public int GameOver(){
+    if(RowWin(1) || ColumnWin(1) || DiagonalWin(1)){
+     return 1;
+    }else if(RowWin(2) || ColumnWin(2) || DiagonalWin(2)){
+      return 2;
+    }else if(BoardFull()){
+    return 3;
+    }else{
+      return 0;
+    }
   }
 }

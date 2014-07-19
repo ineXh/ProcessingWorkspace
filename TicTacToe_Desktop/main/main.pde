@@ -1,7 +1,7 @@
 Board board;
 int GameState = 1; // 1 = Play, 2 = GameOver, 3 = Quit
 int whoseTurn = 1; // 1 = Player, 2 = Computer
-int Winner = 1;
+int Winner = 0;
 ComputerPlayer computer = new ComputerPlayer();
 PFont font;
 QuitButton quitbutton;
@@ -20,8 +20,13 @@ void Update(){
   boolean changeturn;
   if(GameState == 1){
       changeturn = board.TakePlayerTurn();//Update();//TakePlayerTurn();
-      if(board.GameOver()){
+      if(board.GameOver() == 1){
         Winner = 1;
+        GameState = 2;
+        return;
+      }
+      if (board.GameOver() == 3){
+        Winner = 3;
         GameState = 2;
         return;
       }  
@@ -30,12 +35,11 @@ void Update(){
        computer.TakeTurn(board);
        ChangeTurn(); 
       }
-      if(board.GameOver()){
+      if(board.GameOver() == 2){
         Winner = 2;
         GameState = 2;
         return;
-      } 
-    
+      }    
   }
 }
 void draw(){
@@ -50,6 +54,8 @@ void draw(){
       text("You Win", width*3/10, height*45/100);
     if(Winner == 2)
       text("You Lose", width*3/10, height*45/100);
+    if(Winner == 3)
+      text("You Tie", width*3/10, height*45/100);
     playbutton.draw();
     quitbutton.draw();
   }

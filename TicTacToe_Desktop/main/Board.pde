@@ -1,7 +1,7 @@
 public class Board
 {
-
   BoardSquare [][] board = new BoardSquare[3][3];
+  int n; // # placed
   public Board(int sq_len)
   {
     for (int row = 0; row < 3; row++)
@@ -31,13 +31,13 @@ public class Board
       for (int col = 0; col < 3; col++)
       {
         board[row][col].Content_Set(0);
+        n = 0;
       }
     }
   }
 
   public BoardSquare GetSquare(int row, int col)
   {
-    BoardSquare abc = board[1][1];
     return board[row][col]; 
   }
   public boolean TakePlayerTurn(){

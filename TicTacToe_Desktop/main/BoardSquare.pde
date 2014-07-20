@@ -17,6 +17,13 @@ public class BoardSquare
   {
     this.content = content;
   }
+  public void Content_Remove(){
+    content = 0;
+  }
+  public boolean isEmpty()
+  {
+    return content == 0;
+  }
   public boolean Update()
   {
     //if (mousePressed == true) {

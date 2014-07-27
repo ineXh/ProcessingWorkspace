@@ -7,15 +7,40 @@
   {
     if(!TakeCenter(board)){
       if(!TakeWinMove(board)){
-        if(!PreventWinMove(board)) TakeRandom(board);
-      }
-    }    
+        if(!PreventWinMove(board)){
+         if(!TakeCorner(board)) TakeRandom(board);
+        }  
+      }      
+    }
   }
   private boolean TakeCenter(Board board){
     BoardSquare square = board.GetSquare(1, 1);
     if(square.isEmpty()){
       Place(square);
       n++;
+      return true;
+    }
+    return false;
+  }
+  private boolean TakeCorner(Board board){
+    BoardSquare square = board.GetSquare(0,0);
+    if(square.isEmpty()){
+      Place(square);
+      return true;
+    }
+    square = board.GetSquare(0,2);
+    if(square.isEmpty()){
+      Place(square);
+      return true;
+    }
+    square = board.GetSquare(2,0);
+    if(square.isEmpty()){
+      Place(square);
+      return true;
+    }
+    square = board.GetSquare(2,2);
+    if(square.isEmpty()){
+      Place(square);
       return true;
     }
     return false;

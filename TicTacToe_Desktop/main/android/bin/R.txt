@@ -97,6 +97,7 @@ int id grayscale 0x7f070012
 int id holo_dark 0x7f070005
 int id holo_light 0x7f070006
 int id hybrid 0x7f070004
+int id linearLayout 0x7f070014
 int id match_parent 0x7f07000c
 int id monochrome 0x7f070013
 int id none 0x7f070000

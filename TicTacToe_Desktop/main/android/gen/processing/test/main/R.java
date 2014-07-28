@@ -405,6 +405,7 @@ containing a value of this type.
         public static final int holo_dark=0x7f070005;
         public static final int holo_light=0x7f070006;
         public static final int hybrid=0x7f070004;
+        public static final int linearLayout=0x7f070014;
         public static final int match_parent=0x7f07000c;
         public static final int monochrome=0x7f070013;
         public static final int none=0x7f070000;

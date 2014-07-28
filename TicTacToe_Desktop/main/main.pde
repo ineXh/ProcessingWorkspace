@@ -1,3 +1,9 @@
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Window;
+import android.widget.RelativeLayout;
+import com.google.ads.*;
+
 Board board;
 int GameState = 1; // 1 = Play, 2 = GameOver, 3 = Quit
 int whoseTurn = 1; // 1 = Player, 2 = Computer

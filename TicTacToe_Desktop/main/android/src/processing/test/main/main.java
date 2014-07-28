@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import com.google.ads.*;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdRequest;
 
@@ -422,7 +423,12 @@ public class QuitButton
 
   public int sketchWidth() { return 480; }
   public int sketchHeight() { return 480; }
-  /*
+  
+	  private static final String TEST_DEVICE_ID = "43423541314439565659";  
+	  /* Your ad unit id. Replace with your actual ad unit id. */
+	  private static final String AD_UNIT_ID = "ca-app-pub-8663005545856692/2098034763";
+	  private AdView adView;
+	  
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -432,17 +438,17 @@ public class QuitButton
 	           RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.FILL_PARENT);
 	     // Displays Ads at the bottom of your sketch, use Gravity.TOP to display them at the top
 	    adsLayout.setGravity(Gravity.BOTTOM);
-	    //AdView adView = new AdView(this, AdSize.BANNER, "pub-8663005545856692");  // add your app-id
-	    AdView adView = new AdView(this.getApplicationContext());//, AdSize.BANNER,"pub-8663005545856692");
-	    adView.setAdUnitId("pub-8663005545856692");
-	    AdSize customAdSize = new AdSize(250, 250);
-	    //adView.setAdSize(AdSize.SMART_BANNER);
-	    
+	    adView = new AdView(this);
+	    adView.setAdSize(AdSize.BANNER);
+	    adView.setAdUnitId(AD_UNIT_ID);
 	    adsLayout.addView(adView);
-	    AdRequest newAdReq = new AdRequest.Builder().build();
+	    AdRequest adRequest = new AdRequest.Builder()
+	    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+	    .addTestDevice("43423541314439565659")
+	    .build();
 	    // Remark: uncomment next line for testing your Ads (fake ads)
 	    //newAdReq.setTesting(true);
-	    adView.loadAd(newAdReq);
+	    adView.loadAd(adRequest);
 	    window.addContentView(adsLayout,lp2);
-	}*/
+	  }
 }

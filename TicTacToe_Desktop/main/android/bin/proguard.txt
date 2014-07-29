@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:16
+-keep class com.google.android.gms.ads.AdActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:10
+-keep class processing.test.main.main { <init>(...); }
+

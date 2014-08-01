@@ -225,7 +225,7 @@ class Orb {
       obj.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
       obj.kicking = true;
       obj.kick_start_time = millis();
-      player.play();
+      //player.play();
     }
   }
 
@@ -252,5 +252,6 @@ class Orb {
   
   
 }
+
 
 

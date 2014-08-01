@@ -6,8 +6,8 @@ public class Enemy extends Character{
     char_width = obj.width;
     char_height = obj.height;
     r = max(char_width, char_height)/2;    
-    damping = 1;
-    m = char_width*2;
+    damping = 1.02;
+    m = char_width*4;
   }
     public void Draw(){
     if(millis() - kick_start_time > 750) kicking = false;

@@ -4,6 +4,9 @@ Ground ground_T;
 Ground ground_L;
 Orb orb;
 Character cow;
+Enemy hippo;
+//Maxim maxim;
+//AudioPlayer player;
 
 boolean first_move = true;
 
@@ -30,10 +33,13 @@ void setup(){
                         60);                          
                         
 // An orb object that will fall and bounce around
-  orb = new Orb(width/2, height/2, 25);
+  orb = new Orb(width/2, height/4, 15);
   
-  cow = new Character("cow_25.png", width/2, height/2);
+  cow = new Character("cow_35.png", width/2, height/2, "cow_35b.png");
+  hippo = new Enemy("hippo.png", width*3/4, height*3/4);
   background(0);
+  //player = maxim.loadFile("mooo2.wav");
+  //player.volume(0.6);
   
 }
 void mouseDragged()
@@ -58,6 +64,7 @@ void draw(){
  orb.checkGround(ground_T);
  orb.checkGround(ground_L);
  orb.checkCharacterCollision(cow);
+ orb.checkCharacterCollision(hippo);
  
   Update();
   fill(0, 200, 0, 1);
@@ -74,6 +81,15 @@ void draw(){
   cow.checkGround(ground_R);
   cow.checkGround(ground_T);
   cow.checkGround(ground_L);
+  
+  // Hippo
+  hippo.Draw();
+  hippo.move();
+  hippo.checkGround(ground_B);
+  hippo.checkGround(ground_R);
+  hippo.checkGround(ground_T);
+  hippo.checkGround(ground_L);
+  
 }
 
 void Update(){
@@ -105,3 +121,4 @@ void Update(){
     ground_L.Translate(0,-0.5);
   }
 }
+

@@ -1,23 +1,32 @@
 public class Character{
   PVector position;
-  PVector velocity;
+  public PVector velocity;
   PVector acceleration;
   int char_width;
   int char_height;
   float r;
-  float damping = 0.5;
+  float damping;
   float max_x_accel = 5;
   float max_y_accel = 5;
+  public float m;
   
-  PImage obj; 
+  PImage obj;
+   PImage obj_kick; 
+   public boolean kicking;
+   public int kick_start_time = 0;
   // Constructor
-  Character(String File, int x, int y){
+  Character(){
+  }
+  Character(String File, int x, int y, String File_kick){
     obj = loadImage(File);
+    obj_kick = loadImage(File_kick);
     char_width = obj.width;
     char_height = obj.height;
     velocity = new PVector(0,0);//random(3,6), random(3,6));
     position = new PVector(x, y);
-    r = 2;
+    r = max(char_width, char_height)/2;
+    m = char_width;
+    damping = 0.5;
   }
   PVector getPos(){
     return position;
@@ -36,6 +45,9 @@ public class Character{
   void setVel(PVector vel){
     velocity = vel;
   }
+  void setPos(PVector pos){
+    position = pos;
+  }
   void accelerate()
   {
     acceleration = new PVector( map((mouseX - pmouseX), 0, width, 0, max_x_accel),  map((mouseY - pmouseY), 0, height, 0, max_y_accel));
@@ -48,7 +60,13 @@ public class Character{
   }
   
   public void Draw(){
-    image(obj, position.x, position.y);
+    if(millis() - kick_start_time > 750) kicking = false;
+    imageMode(CENTER);
+    if(kicking){
+      image(obj_kick, position.x, position.y);
+    }else{
+      image(obj, position.x, position.y);
+    }
   }
   // Check boundaries of window
   void checkWallCollision() {
@@ -89,44 +107,44 @@ public class Character{
      collision and also that orb is within 
      left/rights bounds of ground segment */
      if(ground_type == 0){
-      if (groundYTemp > -char_height &&//-r &&
+      if (groundYTemp > -char_height/2 &&//-r &&
         position.x > groundSegment.x1 &&
         position.x < groundSegment.x2 ) {
         // keep orb from going into ground
-        groundYTemp = -char_height;//-r;
+        groundYTemp = -char_height/2;//-r;
         // bounce and slow down orb
         velocityYTemp *= -1.0;
         velocityYTemp *= damping;
       }
      }
      if(ground_type == 1){
-      if (groundYTemp < char_width &&
+      if (groundYTemp < char_width/2 &&
         position.y > groundSegment.y1 &&
         position.y < groundSegment.y2 ) {
         // keep orb from going into ground
-        groundYTemp = char_width;
+        groundYTemp = char_width/2;
         // bounce and slow down orb
         velocityYTemp *= -1.0;
         velocityYTemp *= damping;
       }
      }
      if(ground_type == 2){
-      if (groundYTemp < -r &&
+      if (groundYTemp < char_height/2 &&
         position.x > groundSegment.x1 &&
         position.x < groundSegment.x2 ) {
         // keep orb from going into ground
-        groundYTemp = -r;
+        groundYTemp = char_height/2;
         // bounce and slow down orb
         velocityYTemp *= -1.0;
         velocityYTemp *= damping;
       }
      }
      if(ground_type == 3){
-      if (groundYTemp > r &&
+      if (groundYTemp > -char_width/2 &&
         position.y > groundSegment.y1 &&
         position.y < groundSegment.y2 ) {
         // keep orb from going into ground
-        groundYTemp = r;
+        groundYTemp = -char_width/2;
         // bounce and slow down orb
         velocityYTemp *= -1.0;
         velocityYTemp *= damping;
@@ -143,3 +161,4 @@ public class Character{
   } // End checkGroundCollision
 
 }
+

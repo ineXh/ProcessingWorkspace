@@ -8,11 +8,13 @@ public class Enemy extends Character{
     r = max(char_width, char_height)/2;    
     damping = 1.02;
     m = char_width*4;
+    HP = 200;
   }
-    public void Draw(){
-    if(millis() - kick_start_time > 750) kicking = false;
+    public void Draw(){    
     imageMode(CENTER);    
       image(obj, position.x, position.y);
-  }
+      //rect(position.x - char_width/3, position.y - char_height/2 - 3,
+        //    char_width*2/3, 2, 5);
+    }
 }
 

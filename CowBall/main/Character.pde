@@ -10,6 +10,8 @@ public class Character{
   float max_y_accel = 5;
   public float m;
   
+  int HP;
+  
   PImage obj;
    PImage obj_kick; 
    public boolean kicking;
@@ -27,6 +29,7 @@ public class Character{
     r = max(char_width, char_height)/2;
     m = char_width;
     damping = 0.5;
+    HP = 5;
   }
   PVector getPos(){
     return position;

@@ -1,7 +1,5 @@
 public class Orb extends Ball{
   // Orb has position and velocity
-  PVector position;
-  PVector velocity;
   float r, r_start;
   // A damping of 80% slows it down when it hits the ground
   float damping = 0.8;

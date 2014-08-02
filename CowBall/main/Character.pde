@@ -1,6 +1,5 @@
-public class Character{
-  PVector position;
-  public PVector velocity;
+public class Character extends Ball{
+
   PVector acceleration;
   int char_width;
   int char_height;

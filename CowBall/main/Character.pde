@@ -9,7 +9,7 @@ public class Character{
   float max_x_accel = 5;
   float max_y_accel = 5;
   public float m;
-  int Character_Type;
+  int Character_Type; // 0 = main, 1 = Enemy
   
      PImage obj_kick; 
    public boolean kicking;
@@ -46,7 +46,15 @@ public class Character{
   }
   void loseHP(int n){
     HP -= n;
-    if(HP <= 0) GameStage = -1;
+    if(HP < 0){
+      //GameState = 0;
+      GameStage = -1;
+      if(Character_Type == 0){ // Main
+        Winner = 2; // Computer Wins
+      }else if(Character_Type == 1){
+        Winner = 1; // Player Wins
+      }     
+    }    
   }
   int getCharacterType(){
     return Character_Type;

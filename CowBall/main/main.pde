@@ -4,7 +4,7 @@
 //APMediaPlayer short_moo;
 //APMediaPlayer hipponoise;
 
-
+PFont Msgfont;
 Ground ground_B;
 Ground ground_R;
 Ground ground_T;
@@ -13,6 +13,9 @@ Orb orb;//, orb2, orb3;
 MainCharacter cow;
 Enemy hippo;
 int GameStage = 0;// -1 = gameover
+int GameState = 1; // 0 = pause for input; 1 = In Play
+int Winner = 0;    // 1 = player, 2 = computer
+
 //Minim minim;
 //AudioPlayer player;
 //AudioInput input;
@@ -21,7 +24,10 @@ boolean first_move = true;
 
 PVector gravity = new PVector(0,0);
 
+
+
 void setup(){
+  Msgfont = loadFont("Andy-Bold-64.vlw");
   /*mooo = new APMediaPlayer(this); //create new APMediaPlayer
   mooo.setMediaFile("mooo2.wav"); //set the file (files are in data folder)
   
@@ -66,8 +72,7 @@ void mouseDragged()
   cow.accelerate();
 }
 void draw(){
-  draw_stage(GameStage);
-  
+  draw_stage(GameStage);  
 }
 
 void Update(){

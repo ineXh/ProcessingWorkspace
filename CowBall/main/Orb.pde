@@ -9,7 +9,7 @@ class Orb {
 
   Orb(float x, float y, float r_) {
     position = new PVector(x, y);
-    velocity = new PVector(random(0,10), random(0,10));
+    velocity = new PVector(random(0,1), random(0,1));
     r = r_;
     r_start = r;
     m = 2*r;

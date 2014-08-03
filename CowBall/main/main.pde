@@ -1,3 +1,10 @@
+//import apwidgets.*;
+
+//APMediaPlayer mooo;
+//APMediaPlayer short_moo;
+//APMediaPlayer hipponoise;
+
+
 Ground ground_B;
 Ground ground_R;
 Ground ground_T;
@@ -5,15 +12,25 @@ Ground ground_L;
 Orb orb;//, orb2, orb3;
 MainCharacter cow;
 Enemy hippo;
-int GameStage = 0;
-//Maxim maxim;
+int GameStage = 0;// -1 = gameover
+//Minim minim;
 //AudioPlayer player;
+//AudioInput input;
 
 boolean first_move = true;
 
 PVector gravity = new PVector(0,0);
 
 void setup(){
+  /*mooo = new APMediaPlayer(this); //create new APMediaPlayer
+  mooo.setMediaFile("mooo2.wav"); //set the file (files are in data folder)
+  
+  short_moo = new APMediaPlayer(this); //create new APMediaPlayer
+  short_moo.setMediaFile("short_moo.wav"); //set the file (files are in data folder)
+  
+  hipponoise = new APMediaPlayer(this); //create new APMediaPlayer
+  hipponoise.setMediaFile("hippo.wav"); //set the file (files are in data folder)
+  */
   orientation(PORTRAIT);
   size(480, 720);
   
@@ -41,7 +58,7 @@ void setup(){
   hippo = new Enemy("hippo.png", width*3/4, height*3/4);
   background(0);
   //player = maxim.loadFile("mooo2.wav");
-  //player.volume(0.6);
+  //
   
 }
 void mouseDragged()
@@ -49,7 +66,7 @@ void mouseDragged()
   cow.accelerate();
 }
 void draw(){
-  draw_stage(1);
+  draw_stage(GameStage);
   
 }
 

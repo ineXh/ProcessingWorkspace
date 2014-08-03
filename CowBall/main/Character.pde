@@ -11,12 +11,15 @@ public class Character{
   public float m;
   int Character_Type;
   
+     PImage obj_kick; 
+   public boolean kicking;
+   public int kick_start_time = 0;
+   public int last_kick_start_time = 0;
+  
   int HP;
   
   PImage obj;
-   PImage obj_kick; 
-   public boolean kicking;
-   public int kick_start_time = 0;
+  
   // Constructor
   Character(){
   }
@@ -43,6 +46,7 @@ public class Character{
   }
   void loseHP(int n){
     HP -= n;
+    if(HP <= 0) GameStage = -1;
   }
   int getCharacterType(){
     return Character_Type;
@@ -229,17 +233,17 @@ public class Character{
 
       position.add(bFinal[0]);
 
-      // Boss lose HP
+      // Cow lose HP
       if(obj.getCharacterType() == 1){
         loseHP(1);
+        //mooo.seekTo(0); //"rewind"
+        //mooo.start; //start play back
       }
       // update velocities
       velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;
       velocity.y = cosine * vFinal[0].y + sine * vFinal[0].x;
       obj.velocity.x = cosine * vFinal[1].x - sine * vFinal[1].y;
       obj.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
-      obj.kicking = true;
-      obj.kick_start_time = millis();
       
       //player.play();
     }

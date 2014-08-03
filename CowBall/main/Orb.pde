@@ -203,7 +203,12 @@ class Orb {
 
       // Boss lose HP
       if(obj.getCharacterType() == 1){
-        obj.loseHP((int)mag(velocity.x, velocity.y));
+        int vel = (int)mag(velocity.x, velocity.y);
+        float vel_map = map(vel, 0, 10, 0, 1.0);
+        obj.loseHP(vel);
+        //hipponoise.setVolume(vel_map, vel_map);
+        //hipponoise.seekTo(0); //"rewind"
+        //hipponoise.start(); //start play back
       }
       // update velocities
       velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;
@@ -211,9 +216,19 @@ class Orb {
       obj.velocity.x = cosine * vFinal[1].x - sine * vFinal[1].y;
       obj.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
       obj.kicking = true;
+      if(millis() - obj.last_kick_start_time > 750){ 
+        obj.last_kick_start_time = millis();
+      }else if(millis() - obj.last_kick_start_time > 500){
+        obj.position.x += obj.r;
+        obj.position.y += obj.r;
+      }
       obj.kick_start_time = millis();
-      
-      //player.play();
+      if(obj.getCharacterType() == 0){
+        //short_moo.seekTo(0); //"rewind"
+        //short_moo.start(); //start play back
+        //player.cue(0);
+        //player.play();
+      }
     }
   }
 

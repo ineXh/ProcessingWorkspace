@@ -1,6 +1,8 @@
 public class MainCharacter extends Character{
   PImage heart;
   
+
+  
   MainCharacter(String File, int x, int y, String File_kick){
     Character_Type = 0;
     obj = loadImage(File);

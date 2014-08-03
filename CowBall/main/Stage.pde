@@ -34,6 +34,7 @@ void draw_stage(int Stage){
   cow.Draw();
   cow.move();
   //cow.checkWallCollision();
+  cow.checkCharacterCollision(hippo);
   cow.checkGround(ground_B);
   cow.checkGround(ground_R);
   cow.checkGround(ground_T);

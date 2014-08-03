@@ -3,7 +3,7 @@ Ground ground_R;
 Ground ground_T;
 Ground ground_L;
 Orb orb;//, orb2, orb3;
-Character cow;
+MainCharacter cow;
 Enemy hippo;
 int GameStage = 0;
 //Maxim maxim;
@@ -37,7 +37,7 @@ void setup(){
 // An orb object that will fall and bounce around
   orb = new Orb(width/2, height/4, 10);
   
-  cow = new Character("cow_35.png", width/2, height/2, "cow_35b.png");
+  cow = new MainCharacter("cow_35.png", width/2, height/2, "cow_35b.png");
   hippo = new Enemy("hippo.png", width*3/4, height*3/4);
   background(0);
   //player = maxim.loadFile("mooo2.wav");

@@ -15,7 +15,7 @@ PVector gravity = new PVector(0,0);
 
 void setup(){
   orientation(PORTRAIT);
-  size(720, 480);
+  size(480, 720);
   
   ground_B = new Ground((int)random(8,15),    // Segment
                          0,    // Type Ground

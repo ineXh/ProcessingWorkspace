@@ -121,24 +121,7 @@ class Orb {
     position.x = groundSegment.x + deltaX;
     position.y = groundSegment.y + deltaY;
   } // End checkGroundCollision
-  /*
-  void checkCharacterCollision(Character obj){
-    PVector character_pos = obj.getPos();
-    if(  position.x + r > character_pos.x && 
-         position.y + r > character_pos.y &&
-         position.x - r < character_pos.x + obj.getCharacterWidth() &&
-         position.y - r < character_pos.y + obj.getCharacterHeight()){
-            PVector character_vel = obj.getVel();
-            PVector new_character_vel = new PVector(character_vel.x + velocity.x/10, character_vel.y + velocity.y/10);
-            PVector new_velocity = new PVector(velocity.x + character_vel.x/2, velocity.y + character_vel.y/2);
-            velocity = new_velocity;
-            position.add(velocity);
-              
-            obj.setVel(new_character_vel);
-            character_pos.add(new_character_vel);
-            obj.setPos(character_pos);            
-         }
-  }*/
+ 
 
   void checkCharacterCollision(Character obj) {
 
@@ -218,6 +201,10 @@ class Orb {
 
       position.add(bFinal[0]);
 
+      // Boss lose HP
+      if(obj.getCharacterType() == 1){
+        obj.loseHP((int)mag(velocity.x, velocity.y));
+      }
       // update velocities
       velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;
       velocity.y = cosine * vFinal[0].y + sine * vFinal[0].x;
@@ -225,6 +212,7 @@ class Orb {
       obj.velocity.y = cosine * vFinal[1].y + sine * vFinal[1].x;
       obj.kicking = true;
       obj.kick_start_time = millis();
+      
       //player.play();
     }
   }

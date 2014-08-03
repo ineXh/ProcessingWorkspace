@@ -9,6 +9,7 @@ public class Character{
   float max_x_accel = 5;
   float max_y_accel = 5;
   public float m;
+  int Character_Type;
   
   int HP;
   
@@ -20,6 +21,7 @@ public class Character{
   Character(){
   }
   Character(String File, int x, int y, String File_kick){
+    Character_Type = 0;
     obj = loadImage(File);
     obj_kick = loadImage(File_kick);
     char_width = obj.width;
@@ -50,6 +52,12 @@ public class Character{
   }
   void setPos(PVector pos){
     position = pos;
+  }
+  void loseHP(int n){
+    HP -= n;
+  }
+  int getCharacterType(){
+    return Character_Type;
   }
   void accelerate()
   {

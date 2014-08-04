@@ -144,11 +144,11 @@ void DrawStandard(){
       hippo.checkGround(ground_R);
       hippo.checkGround(ground_T);
       hippo.checkGround(ground_L);
-
+/*
     fill(255,0,0, 255);
-    textFont(Msgfont,14);
+    textFont(Msgfont,64);
     msg = "Stage: " + GameStage;
     text(msg, 10, 50);      
     msg = "Ball Speed: " + orb.getSpeed();
-    text(msg, 10, 70);
+    text(msg, 10, 70);*/
 }

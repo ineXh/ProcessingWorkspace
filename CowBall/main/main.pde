@@ -5,7 +5,7 @@ APMediaPlayer short_moo;
 APMediaPlayer hipponoise;
 
 PFont Msgfont;
-PFont Stagefont;
+//PFont Stagefont;
 Ground ground_B;
 Ground ground_R;
 Ground ground_T;
@@ -32,7 +32,7 @@ PVector gravity = new PVector(0,0);
 
 void setup(){
   Msgfont = loadFont("Andy-Bold-64.vlw");
-  Stagefont = loadFont("Andy-Bold-14.vlw");
+  //Stagefont = loadFont("Andy-Bold-14.vlw");
 /*  mooo = new APMediaPlayer(this); //create new APMediaPlayer
   mooo.setMediaFile("mooo2.wav"); //set the file (files are in data folder)
   

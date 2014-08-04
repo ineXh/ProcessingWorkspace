@@ -19,7 +19,7 @@ void draw_stage(int Stage){
         if(!Stage_inter){
           HPMax+= 5;
           hippo.HP = HPMax;
-          hippo.
+          hippo.damping += 0.01;
         }
         StageStandard();
       break;
@@ -27,6 +27,7 @@ void draw_stage(int Stage){
       if(!Stage_inter){
             HPMax+= 5;
             hippo.HP = HPMax;
+            hippo.damping += 0.01;
         }
         StageStandard();
       break;
@@ -34,16 +35,19 @@ void draw_stage(int Stage){
       if(!Stage_inter){
             HPMax+= 5;
             hippo.HP = HPMax;
+            hippo.damping += 0.01;
         }
         StageStandard();
       break;  
     case 5:
       GameState = 0;
        background(0, 0, 0);  
+       textFont(Msgfont,64);
        text("You Win", width*3/10, height*45/100);
        playbutton.draw();
        quitbutton.draw();  
     case -1:
+    textFont(Msgfont,64);
     if(Winner == 2) text("You Lose", width*3/10, height*45/100);
     if(GameState == 0){
       playbutton.draw();
@@ -96,6 +100,7 @@ void StageStandard(){
    }
 }
 void DrawStandard(){
+    
     // Background
       //noStroke();
       fill(10, 20, 30, 40 + second()*2);
@@ -138,5 +143,12 @@ void DrawStandard(){
       hippo.checkGround(ground_B);
       hippo.checkGround(ground_R);
       hippo.checkGround(ground_T);
-      hippo.checkGround(ground_L);       
+      hippo.checkGround(ground_L);
+
+    fill(255,0,0, 255);
+    textFont(Msgfont,14);
+    msg = "Stage: " + GameStage;
+    text(msg, 10, 50);      
+    msg = "Ball Speed: " + orb.getSpeed();
+    text(msg, 10, 70);
 }

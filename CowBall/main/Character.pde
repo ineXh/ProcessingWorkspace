@@ -244,8 +244,8 @@ public class Character{
       // Cow lose HP
       if(obj.getCharacterType() == 1){
         loseHP(1);
-        //mooo.seekTo(0); //"rewind"
-        //mooo.start(); //start play back
+        mooo.seekTo(0); //"rewind"
+        mooo.start(); //start play back
       }
       // update velocities
       velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;

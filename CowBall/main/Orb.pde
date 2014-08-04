@@ -29,6 +29,9 @@ class Orb {
     ellipse(position.x, position.y, r*2, r*2);
     noStroke();
   }
+  float getSpeed(){
+    return mag(velocity.x, velocity.y);
+  }
   
   // Check boundaries of window
   void checkWallCollision() {
@@ -206,9 +209,9 @@ class Orb {
         int vel = (int)mag(velocity.x, velocity.y);
         float vel_map = map(vel, 0, 10, 0, 1.0);
         obj.loseHP(vel);
-        //hipponoise.setVolume(vel_map, vel_map);
-        //hipponoise.seekTo(0); //"rewind"
-        //hipponoise.start(); //start play back
+        hipponoise.setVolume(vel_map, vel_map);
+        hipponoise.seekTo(0); //"rewind"
+        hipponoise.start(); //start play back
       }
       // update velocities
       velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;
@@ -224,8 +227,8 @@ class Orb {
       }
       obj.kick_start_time = millis();
       if(obj.getCharacterType() == 0){
-        //short_moo.seekTo(0); //"rewind"
-        //short_moo.start(); //start play back
+        short_moo.seekTo(0); //"rewind"
+        short_moo.start(); //start play back
         //player.cue(0);
         //player.play();
       }

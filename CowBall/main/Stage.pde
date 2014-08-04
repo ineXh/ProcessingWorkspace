@@ -1,38 +1,27 @@
 int CountStartTime;
-boolean Stage0_Started = false;
+boolean Stage_inter = false;
+boolean Stage_started = false;
+boolean Stage_ended = false;
+String msg;
+//boolean Stage2_inter = false;
+//boolean Stage2_started = false;
+//boolean Stage2_ended = false;
 void draw_stage(int Stage){
   switch (Stage){
     case 0:
-        //GameStage ++;
-        GameState = 0;        
-        fill(255,0,0, 100);
-        textFont(Msgfont,64);
-        if(!Stage0_Started){
-          Stage0_Started = true;
-          CountStartTime = millis();
-        }
-        text("Stage 1 Start", width*2/10, height*45/100);
-        if(millis() - CountStartTime > 2000){
-          GameState = 1;
-          GameStage++;
-        }
-        
+      GameStage++;
       break;
-    case 1:
-      DrawStandard();            
-      if(GameState == 0){
-        textFont(Msgfont,64);
-        fill(255,0,0, 255);
-        text("Stage 1 Complete", width*1/10, height*45/100);
-        CountStartTime = millis();
-        if(millis() - CountStartTime > 2000){
-          GameState = 1;
-          GameStage++;
-        }        
-        GameStage++;
-      }
+    case 1:                       
+        StageStandard();        
       break;
     case 2:
+        if(!Stage_inter){
+          HPMax = 20;
+          hippo.HP = HPMax
+        }
+        StageStandard();
+      break;
+    case 3:
       break;
     case -1:
     if(Winner == 2)
@@ -41,6 +30,46 @@ void draw_stage(int Stage){
     default:
       break;
   }  
+}
+void StageStandard(){
+  if(!Stage_inter){
+    GameState = 0;
+    Stage_inter = true;
+    CountStartTime = millis();
+    fill(255,0,0, 255);
+    textFont(Msgfont,64);
+    msg = "Stage " + GameStage + " Start";
+    text(msg, width*2/10, height*45/100);
+  }        
+  if(millis() - CountStartTime > 2000 && !Stage_ended){
+    GameState = 1;
+    //GameStage++;
+    Stage_started = true;
+    background(0, 0, 0);
+  }
+  if(Stage_started){
+    DrawStandard();
+    if(Winner == 1){
+      CountStartTime = millis();
+      Stage_ended = true;
+      Stage_started = false;
+    }          
+  }
+  if(Winner == 1){                              
+    fill(255,0,0, 255);
+    textFont(Msgfont,64);
+    msg = "Stage " + GameStage + " Complete";
+    text(msg, width*1/10, height*45/100);
+     if(millis() - CountStartTime > 2000){
+        GameState = 1;
+        GameStage++;
+        Winner = 0;
+        cow.loseHP(-1);   
+        Stage_inter = false;
+        Stage_started = false;
+        Stage_ended = false;       
+     }                                    
+   }
 }
 void DrawStandard(){
     // Background

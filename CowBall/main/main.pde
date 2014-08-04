@@ -62,10 +62,14 @@ void setup(){
   
   cow = new MainCharacter("cow_35.png", width/2, height/2, "cow_35b.png");
   hippo = new Enemy("hippo.png", width*3/4, height*3/4);
-  background(0);
+  background(0, 0, 0);
   //player = maxim.loadFile("mooo2.wav");
   //
   
+}
+void mousePressed(){
+  if(GameState == 0){    
+  }
 }
 void mouseDragged()
 {

@@ -45,12 +45,12 @@ public class Character{
     position = pos;
   }
   void loseHP(int n){
-    HP -= n;
+    if(GameState != 0)  HP -= n;
     if(HP < 0){
-      //GameState = 0;
-      GameStage = -1;
+      GameState = 0;      
       if(Character_Type == 0){ // Main
         Winner = 2; // Computer Wins
+        GameStage = -1;
       }else if(Character_Type == 1){
         Winner = 1; // Player Wins
       }     

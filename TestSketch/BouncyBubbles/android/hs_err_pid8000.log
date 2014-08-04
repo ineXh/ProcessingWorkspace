@@ -1,0 +1,110 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (javaClasses.cpp:129), pid=8000, tid=9784
+#  fatal error: Invalid layout of preloaded class
+#
+# JRE version: 7.0_07-b10
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (23.3-b01 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000000230d000):  JavaThread "Unknown thread" [_thread_in_vm, id=9784, stack(0x0000000002310000,0x0000000002410000)]
+
+Stack: [0x0000000002310000,0x0000000002410000]
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x000000000230d000 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=9784, stack(0x0000000002310000,0x0000000002410000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.008 loading class 0x00000000021e0570 done
+Event: 0.008 loading class 0x00000000021a29b0 done
+Event: 0.008 loading class 0x00000000021a2980
+Event: 0.008 loading class 0x00000000021e9460
+Event: 0.008 loading class 0x00000000021e9460 done
+Event: 0.008 loading class 0x00000000021e94a0
+Event: 0.008 loading class 0x00000000021e94a0 done
+Event: 0.008 loading class 0x0000000009f1e8f0
+Event: 0.008 loading class 0x0000000009f1e8f0 done
+Event: 0.008 loading class 0x00000000021a2980 done
+
+
+Dynamic libraries:
+0x000000013f720000 - 0x000000013f754000 	C:\Users\siu\algs4\java\bin\javaw.exe
+0x0000000077090000 - 0x0000000077239000 	C:\windows\SYSTEM32\ntdll.dll
+0x0000000076f70000 - 0x000000007708f000 	C:\windows\system32\kernel32.dll
+0x000007fefc2a0000 - 0x000007fefc30c000 	C:\windows\system32\KERNELBASE.dll
+0x000007fefc590000 - 0x000007fefc66b000 	C:\windows\system32\ADVAPI32.dll
+0x000007fefd5d0000 - 0x000007fefd66f000 	C:\windows\system32\msvcrt.dll
+0x000007fefcca0000 - 0x000007fefccbf000 	C:\windows\SYSTEM32\sechost.dll
+0x000007fefd0e0000 - 0x000007fefd20d000 	C:\windows\system32\RPCRT4.dll
+0x0000000076e70000 - 0x0000000076f6a000 	C:\windows\system32\USER32.dll
+0x000007fefc8f0000 - 0x000007fefc957000 	C:\windows\system32\GDI32.dll
+0x000007fefc960000 - 0x000007fefc96e000 	C:\windows\system32\LPK.dll
+0x000007fefd500000 - 0x000007fefd5c9000 	C:\windows\system32\USP10.dll
+0x000007fefa730000 - 0x000007fefa924000 	C:\windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_fa396087175ac9ac\COMCTL32.dll
+0x000007fefccc0000 - 0x000007fefcd31000 	C:\windows\system32\SHLWAPI.dll
+0x000007fefcd40000 - 0x000007fefcd6e000 	C:\windows\system32\IMM32.DLL
+0x000007fefd290000 - 0x000007fefd399000 	C:\windows\system32\MSCTF.dll
+0x0000000066700000 - 0x00000000667d1000 	C:\Users\siu\algs4\java\bin\msvcr100.dll
+0x0000000065b70000 - 0x000000006628f000 	C:\Users\siu\algs4\java\bin\server\jvm.dll
+0x000007fef87e0000 - 0x000007fef87e9000 	C:\windows\system32\WSOCK32.dll
+0x000007fefd090000 - 0x000007fefd0dd000 	C:\windows\system32\WS2_32.dll
+0x000007fefd080000 - 0x000007fefd088000 	C:\windows\system32\NSI.dll
+0x000007fefac20000 - 0x000007fefac5b000 	C:\windows\system32\WINMM.dll
+0x0000000077250000 - 0x0000000077257000 	C:\windows\system32\PSAPI.DLL
+0x00000000738d0000 - 0x00000000738df000 	C:\Users\siu\algs4\java\bin\verify.dll
+0x0000000066d20000 - 0x0000000066d48000 	C:\Users\siu\algs4\java\bin\java.dll
+0x0000000066d00000 - 0x0000000066d15000 	C:\Users\siu\algs4\java\bin\zip.dll
+
+VM Arguments:
+jvm_args: -Dfile.encoding=Cp1252 -Xbootclasspath:C:\Eclipse\sdk\platforms\android-10\android.jar 
+java_command: processing.test.bouncybubbles.BouncyBubbles
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.7.0_21
+CLASSPATH=C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Java\jdk1.7.0_21\bin;C:\Users\siu\algs4\bin;.;C:\Users\siu\algs4\
+PATH=C:/Users/siu/algs4/java/bin/server;C:/Users/siu/algs4/java/bin;C:/Users/siu/algs4/java/lib/amd64;.;C:\Users\siu\algs4\java\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;c:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;c:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;c:\Program Files (x86)\Common Files\Roxio Shared\OEM\12.0\DLLShared\;c:\Program Files (x86)\Roxio\OEM\AudioCore\;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files\MATLAB\R2009b\runtime\win64;C:\Program Files\MATLAB\R2009b\bin;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files (x86)\RSA Security\RSA SecurID Software Token\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Users\siu\Documents\Tech_files\Android\android-sdk-windows\platform-tools;C:\Users\siu\Documents\Tech_files\Android\android-sdk-windows\tools;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\Git\bin;C:\Git\apache-ant-1.9.4\bin;.;C:\Users\siu\algs4\;C:\Users\siu\algs4\bin;C:\Users\siu\algs4\java\bin;C:\Git\apache-ant-1.9.4\bin;;C:\Eclipse\eclipse;
+USERNAME=siu
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 , 64 bit Build 7601 Service Pack 1
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, ht, tsc, tscinvbit
+
+Memory: 4k page, physical 6196400k(853636k free), swap 11701372k(3331644k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (23.3-b01) for windows-amd64 JRE (1.7.0_07-b10), built on Aug 28 2012 18:28:27 by "java_re" with unknown MS VC++:1600
+
+time: Mon Aug 04 05:46:30 2014
+elapsed time: 0 seconds
+

@@ -3,29 +3,52 @@ boolean Stage_inter = false;
 boolean Stage_started = false;
 boolean Stage_ended = false;
 String msg;
-//boolean Stage2_inter = false;
-//boolean Stage2_started = false;
-//boolean Stage2_ended = false;
 void draw_stage(int Stage){
   switch (Stage){
     case 0:
-      GameStage++;
+    if(GameState == 0){
+      playbutton.draw();
+      quitbutton.draw();
+    }
+      //GameStage++;
       break;
     case 1:                       
         StageStandard();        
       break;
     case 2:
         if(!Stage_inter){
-          HPMax = 20;
-          hippo.HP = HPMax
+          HPMax+= 5;
+          hippo.HP = HPMax;
+          hippo.
         }
         StageStandard();
       break;
     case 3:
+      if(!Stage_inter){
+            HPMax+= 5;
+            hippo.HP = HPMax;
+        }
+        StageStandard();
       break;
+   case 4:
+      if(!Stage_inter){
+            HPMax+= 5;
+            hippo.HP = HPMax;
+        }
+        StageStandard();
+      break;  
+    case 5:
+      GameState = 0;
+       background(0, 0, 0);  
+       text("You Win", width*3/10, height*45/100);
+       playbutton.draw();
+       quitbutton.draw();  
     case -1:
-    if(Winner == 2)
-      text("You Lose", width*3/10, height*45/100);
+    if(Winner == 2) text("You Lose", width*3/10, height*45/100);
+    if(GameState == 0){
+      playbutton.draw();
+      quitbutton.draw();
+    }
       break;      
     default:
       break;
@@ -33,6 +56,7 @@ void draw_stage(int Stage){
 }
 void StageStandard(){
   if(!Stage_inter){
+    background(0, 0, 0);
     GameState = 0;
     Stage_inter = true;
     CountStartTime = millis();

@@ -5,7 +5,7 @@ public class Character{
   int char_width;
   int char_height;
   float r;
-  float damping;
+  public float damping;
   float max_x_accel = 5;
   float max_y_accel = 5;
   public float m;
@@ -16,7 +16,7 @@ public class Character{
    public int kick_start_time = 0;
    public int last_kick_start_time = 0;
   
-  int HP;
+  public int HP;
   
   PImage obj;
   
@@ -245,7 +245,7 @@ public class Character{
       if(obj.getCharacterType() == 1){
         loseHP(1);
         //mooo.seekTo(0); //"rewind"
-        //mooo.start; //start play back
+        //mooo.start(); //start play back
       }
       // update velocities
       velocity.x = cosine * vFinal[0].x - sine * vFinal[0].y;

@@ -9,7 +9,7 @@
                android:debuggable="true">
     <activity android:name="">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+        <action android:name="Cow Battle Ball" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>

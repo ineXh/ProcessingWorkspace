@@ -5,12 +5,12 @@ public class Button
   int h;
   int center_x;
   int center_y;
-  public Button(String str){
+  public Button(String str, int x, int y){
     img = loadImage(str);
     w = 200;//img.width;
     h = 100;//img.height;
-    center_x = width/2;
-    center_y = height*1/6;
+    center_x = x;
+    center_y = y;
     
   }
   void draw(){

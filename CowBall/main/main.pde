@@ -1,9 +1,9 @@
-//import apwidgets.*;
+/*import apwidgets.*;
 
-//APMediaPlayer mooo;
-//APMediaPlayer short_moo;
-//APMediaPlayer hipponoise;
-
+APMediaPlayer mooo;
+APMediaPlayer short_moo;
+APMediaPlayer hipponoise;
+*/
 PFont Msgfont;
 Ground ground_B;
 Ground ground_R;
@@ -12,9 +12,12 @@ Ground ground_L;
 Orb orb;//, orb2, orb3;
 MainCharacter cow;
 Enemy hippo;
-int GameStage = 0;// -1 = gameover
-int GameState = 1; // 0 = pause for input; 1 = In Play
+int GameStage = 4;// -1 = gameover
+int GameState = 0; // 0 = pause for input; 1 = In Play
 int Winner = 0;    // 1 = player, 2 = computer
+
+Button quitbutton;
+Button playbutton;
 
 //Minim minim;
 //AudioPlayer player;
@@ -28,7 +31,7 @@ PVector gravity = new PVector(0,0);
 
 void setup(){
   Msgfont = loadFont("Andy-Bold-64.vlw");
-  /*mooo = new APMediaPlayer(this); //create new APMediaPlayer
+/*  mooo = new APMediaPlayer(this); //create new APMediaPlayer
   mooo.setMediaFile("mooo2.wav"); //set the file (files are in data folder)
   
   short_moo = new APMediaPlayer(this); //create new APMediaPlayer
@@ -66,9 +69,21 @@ void setup(){
   //player = maxim.loadFile("mooo2.wav");
   //
   
+  playbutton = new Button("playbutton.jpg", width/2, height*20/100);  
+  quitbutton = new Button("quitbutton.jpg", width/2, height*80/100);
+  
+  
 }
 void mousePressed(){
-  if(GameState == 0){    
+  if(GameState == 0){ 
+     if(playbutton.update()){
+       GameState = 1;
+       GameStage = 1;
+       cow.HP = Cow_HP;
+       hippo.HP = HPMax_Start;
+       HPMax = HPMax_Start;
+     }
+     if(quitbutton.update()) exit();   
   }
 }
 void mouseDragged()

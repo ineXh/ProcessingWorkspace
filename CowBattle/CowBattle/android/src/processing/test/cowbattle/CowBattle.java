@@ -85,7 +85,7 @@ public void setup(){
 // An orb object that will fall and bounce around
   orb = new Orb(width/2, height/4, 10);
   
-  cow = new MainCharacter("cow_35.png", width/2, height/2, "cow_35b.png");
+  cow = new MainCharacter("cow_50.png", width/2, height/2, "cow_50b.png");
   hippo = new Enemy("hippo.png", width*3/4, height*3/4);
   background(0, 0, 0);
   //player = maxim.loadFile("mooo2.wav");
@@ -457,7 +457,7 @@ public class Character{
 // Boss
 int HPBar_Length = 160;
 int HPBar_Height = 15;
-int HPMax_Start = 10;
+int HPMax_Start = 15;
 int HPMax = HPMax_Start;
 float Damping_Start = 1.02f;
 
@@ -995,8 +995,16 @@ public void draw_stage(int Stage){
             hippo.damping += 0.01f;
         }
         StageStandard();
-      break;  
-    case 5:
+      break; 
+   case 5:
+	      if(!Stage_inter){
+	            HPMax+= 5;
+	            hippo.HP = HPMax;
+	            hippo.damping += 0.01f;
+	        }
+	        StageStandard();
+	    break;
+    case 6:
       GameState = 0;
        background(0, 0, 0);  
        textFont(Msgfont,64);

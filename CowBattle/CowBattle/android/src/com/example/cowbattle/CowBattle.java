@@ -45,7 +45,7 @@ Enemy hippo;
 int GameStage = 0;// -1 = gameover
 int GameState = 0; // 0 = pause for input; 1 = In Play
 int Winner = 0;    // 1 = player, 2 = computer
-
+int ad_height = 75;
 Button quitbutton;
 Button playbutton;
 
@@ -76,7 +76,7 @@ public void setup(){
   
   ground_B = new Ground((int)random(8,15),    // Segment
                          0,    // Type Ground
-                         5,    // Pad Height
+                         ad_height+5,    // Pad Height
                         60);
   ground_R = new Ground((int)random(8,15),    // Segment
                          1,    // Type Ground
@@ -542,7 +542,7 @@ public class Ground {
         }
         float segs = segments;
         for (int i=0; i<segments; i++){
-          ground_seg[i]  = new Ground_Seg(peakHeights[i], height*1.4f/segs*i, peakHeights[i+1], height/segs*1.4f*(i+1));
+          ground_seg[i]  = new Ground_Seg(peakHeights[i], (height)*1.4f/segs*i, peakHeights[i+1], (height)/segs*1.4f*(i+1));
         }
         Translate(0,-(int)(height*0.1f));
     }
@@ -564,7 +564,7 @@ public class Ground {
         }
         float segs = segments;
         for (int i=0; i<segments; i++){
-          ground_seg[i]  = new Ground_Seg(peakHeights[i], height*1.4f/segs*i, peakHeights[i+1], height/segs*1.4f*(i+1));
+          ground_seg[i]  = new Ground_Seg(peakHeights[i], (height)*1.4f/segs*i, peakHeights[i+1], (height)/segs*1.4f*(i+1));
         }
         Translate(0,-(int)(height*0.2f));
     }
@@ -587,6 +587,7 @@ public class Ground {
   }
   
   public void Draw(){
+
       // Draw ground
     fill(127);
     beginShape();
@@ -1128,8 +1129,8 @@ public void DrawStandard(){
 }
 
 
-  public int sketchWidth() { return 480; }
-  public int sketchHeight() { return 480; }
+  public int sketchWidth() { return displayWidth;}//480; }
+  public int sketchHeight() { return (displayHeight); }//720; }
   
   private static final String TEST_DEVICE_ID = "43423541314439565659";  
    //Your ad unit id. Replace with your actual ad unit id. 

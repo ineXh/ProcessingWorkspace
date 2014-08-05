@@ -57,9 +57,12 @@ boolean first_move = true;
 
 PVector gravity = new PVector(0,0);
 
+PImage title_screen;
 
 
 public void setup(){
+  title_screen = loadImage("cow_title_page.png");
+	
   Msgfont = loadFont("Andy-Bold-64.vlw");
   Stagefont = loadFont("Andy-Bold-14.vlw");
   mooo = new APMediaPlayer(this); //create new APMediaPlayer
@@ -100,7 +103,7 @@ public void setup(){
   //player = maxim.loadFile("mooo2.wav");
   //
   
-  playbutton = new Button("playbutton.jpg", width/2, height*20/100);  
+  playbutton = new Button("playbutton.jpg", width/2, height*60/100);  
   quitbutton = new Button("quitbutton.jpg", width/2, height*80/100);
   
   
@@ -973,6 +976,8 @@ String msg;
 public void draw_stage(int Stage){
   switch (Stage){
     case 0:
+	imageMode(CENTER);    
+    image(title_screen, width/2, height/2);
     if(GameState == 0){
       playbutton.draw();
       quitbutton.draw();
@@ -1018,12 +1023,12 @@ public void draw_stage(int Stage){
       GameState = 0;
        background(0, 0, 0);  
        textFont(Msgfont,64);
-       text("You Win", width*3/10, height*45/100);
+       text("You Win", width*3/10, height*35/100);
        playbutton.draw();
        quitbutton.draw();  
     case -1:
     textFont(Msgfont,64);
-    if(Winner == 2) text("You Lose", width*3/10, height*45/100);
+    if(Winner == 2) text("You Lose", width*3/10, height*35/100);
     if(GameState == 0){
       playbutton.draw();
       quitbutton.draw();
@@ -1042,7 +1047,7 @@ public void StageStandard(){
     fill(255,0,0, 255);
     textFont(Msgfont,64);
     msg = "Stage " + GameStage + " Start";
-    text(msg, width*2/10, height*45/100);
+    text(msg, width*2/10, height*35/100);
   }        
   if(millis() - CountStartTime > 2000 && !Stage_ended){
     GameState = 1;
@@ -1062,7 +1067,7 @@ public void StageStandard(){
     fill(255,0,0, 255);
     textFont(Msgfont,64);
     msg = "Stage " + GameStage + " Complete";
-    text(msg, width*1/10, height*45/100);
+    text(msg, width*1/10, height*35/100);
      if(millis() - CountStartTime > 2000){
         GameState = 1;
         GameStage++;

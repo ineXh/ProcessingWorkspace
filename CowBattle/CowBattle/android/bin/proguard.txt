@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:16
+-keep class com.google.android.gms.ads.AdActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:9
+-keep class cow.battle.cowbattle.CowBattle { <init>(...); }
+

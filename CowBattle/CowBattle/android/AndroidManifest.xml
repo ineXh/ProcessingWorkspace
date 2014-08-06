@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
     android:versionCode="1" 
     android:versionName="1.1" 
-    package="com.example.cowbattle">
+    package="cow.battle.cowbattle">
     <uses-sdk android:minSdkVersion="10"/> 
     <application
         android:icon="@drawable/icon" 

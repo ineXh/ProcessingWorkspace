@@ -1,4 +1,4 @@
-package com.example.cowbattle;
+package cow.battle.cowbattle;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -103,7 +103,7 @@ public void setup(){
   //player = maxim.loadFile("mooo2.wav");
   //
   
-  playbutton = new Button("playbutton.jpg", width/2, height*60/100);  
+  playbutton = new Button("playbutton.jpg", width/2, height*65/100);  
   quitbutton = new Button("quitbutton.jpg", width/2, height*80/100);
   
   
@@ -117,6 +117,8 @@ public void mousePressed(){
        hippo.HP = HPMax_Start;
        HPMax = HPMax_Start;
        hippo.damping = Damping_Start;
+       hippo.following = false;
+       hippo.following_spd = following_spd_start;
      }
      if(quitbutton.update()) exit();   
   }
@@ -131,31 +133,33 @@ public void draw(){
 
 public void Update(){
   int s = second();  // Values from 0 - 59
-  if(first_move){
-    if(s % 10 > 1){
-      return;
-    }else{ first_move = false;}
-  } 
-  if(s % 10 == 1){
-    ground_B.Translate(0,-0.5f);
-    ground_R.Translate(-0.5f,0);
-    ground_T.Translate(0,0.5f);
-    ground_L.Translate(0.5f,0);
-  }else if(s % 10 == 3){
-    ground_B.Translate(0.5f,0);
-    ground_R.Translate(0,-0.5f);
-    ground_T.Translate(-0.5f,0);
-    ground_L.Translate(0,0.5f);
-  }else if(s % 10 == 6){
-    ground_B.Translate(0,0.5f);
-    ground_R.Translate(0.5f,0);
-    ground_T.Translate(0,-0.5f);
-    ground_L.Translate(-0.5f,0);
-  }else if(s % 10 == 8){
-    ground_B.Translate(-0.5f, 0);
-    ground_R.Translate(0,0.5f);
-    ground_T.Translate(0.5f,0);
-    ground_L.Translate(0,-0.5f);
+  if(GameStage > 1){
+	  if(first_move){
+	    if(s % 10 > 1){
+	      return;
+	    }else{ first_move = false;}
+	  } 
+	  if(s % 10 == 1){
+	    ground_B.Translate(0,-0.5f);
+	    ground_R.Translate(-0.5f,0);
+	    ground_T.Translate(0,0.5f);
+	    ground_L.Translate(0.5f,0);
+	  }else if(s % 10 == 3){
+	    ground_B.Translate(0.5f,0);
+	    ground_R.Translate(0,-0.5f);
+	    ground_T.Translate(-0.5f,0);
+	    ground_L.Translate(0,0.5f);
+	  }else if(s % 10 == 6){
+	    ground_B.Translate(0,0.5f);
+	    ground_R.Translate(0.5f,0);
+	    ground_T.Translate(0,-0.5f);
+	    ground_L.Translate(-0.5f,0);
+	  }else if(s % 10 == 8){
+	    ground_B.Translate(-0.5f, 0);
+	    ground_R.Translate(0,0.5f);
+	    ground_T.Translate(0.5f,0);
+	    ground_L.Translate(0,-0.5f);
+	  }
   }
 }
 
@@ -206,8 +210,8 @@ public class Character{
   int char_height;
   float r;
   public float damping;
-  float max_x_accel = 5;
-  float max_y_accel = 5;
+  float max_x_accel = 10;
+  float max_y_accel = 10;
   public float m;
   int Character_Type; // 0 = main, 1 = Enemy
   
@@ -283,10 +287,25 @@ public class Character{
     }
   }
   public void checkGround(Ground ground){
-    int seg = ground.getSegmentNum();
-    for (int i=0; i<seg; i++){
-      checkGroundCollision(ground.getSegment(i),ground.getGroundType());
-    }
+	  int seg;
+		int tol = 10;
+		int ground_type = ground.getGroundType();
+		if(ground_type == 0 && position.y <  height - ground.maxpeakHeight - tol){
+			return;
+		}
+		if(ground_type == 1 && position.x <  width - ground.maxpeakHeight - tol){
+			return;
+		}
+		if(ground_type == 2 && position.y >  ground.maxpeakHeight + tol){
+			return;
+		}
+		if(ground_type == 3 && position.x >  ground.maxpeakHeight + tol){
+			return;
+		}    
+		seg = ground.getSegmentNum();
+	    for (int i=0; i<seg; i++){
+	      checkGroundCollision(ground.getSegment(i), ground_type);
+	    }
   }
 
   public void checkGroundCollision(Ground_Seg groundSegment, int ground_type) {
@@ -364,7 +383,7 @@ public class Character{
   } // End checkGroundCollision
   
    public void checkCharacterCollision(Character obj) {
-
+	   
     // get distances between the balls components
     PVector bVect = PVector.sub(obj.position, position);
 
@@ -472,11 +491,14 @@ int HPBar_Height = 15;
 int HPMax_Start = 15;
 int HPMax = HPMax_Start;
 float Damping_Start = 1.02f;
+double following_spd_start = 0.01;
 
 // Cow
 int Cow_HP = 3;
 
 public class Enemy extends Character{
+  public boolean following = false;
+  public double following_spd = following_spd_start;
   public Enemy(String File, int x, int y){
     obj = loadImage(File);
     velocity = new PVector(random(1,3), random(1,3));
@@ -494,6 +516,14 @@ public class Enemy extends Character{
       image(obj, position.x, position.y); 
       DrawHP();    
     }
+    public void move() {
+    	if(following){
+    		velocity.x = (float) ((cow.position.x > position.x) ? velocity.x + following_spd: velocity.x - following_spd);
+    		velocity.y = (float) ((cow.position.y > position.y) ? velocity.y + following_spd: velocity.y - following_spd);
+    	}
+        velocity.add(gravity);
+        position.add(velocity);
+      }
     private void DrawHP(){
        //rect(position.x - char_width/3, position.y - char_height/2 - 3,
         //    char_width*2/3, 2, 5);
@@ -518,6 +548,7 @@ public class Ground {
   int ground_type;  // 0 = Bottom
   Ground_Seg[] ground_seg;
   float[] peakHeights;
+  public float maxpeakHeight;
   
   // Constructor
   Ground(int segments, int ground_type, int pad_height, int peak_height){
@@ -531,7 +562,7 @@ public class Ground {
     if(ground_type == 0){
         for (int i=0; i <peakHeights.length; i++){
           peakHeights[i] = random(height - pad_height - peak_height, height - pad_height);
-        }
+        }        
         float segs = segments;
         for (int i=0; i<segments; i++){
           ground_seg[i]  = new Ground_Seg(width*1.4f/segs*i, peakHeights[i], width/segs*1.4f*(i+1), peakHeights[i+1]);
@@ -571,6 +602,7 @@ public class Ground {
         }
         Translate(0,-(int)(height*0.2f));
     }
+    maxpeakHeight = max(peakHeights) + pad_height;
   } // End Ground Constructor
   
   public int getGroundType(){
@@ -751,9 +783,24 @@ class Orb {
     }
   }
   public void checkGround(Ground ground){
-    int seg = ground.getSegmentNum();
+	int seg;
+	int tol = 10;
+	int ground_type = ground.getGroundType();
+	if(ground_type == 0 && position.y <  height - ground.maxpeakHeight - tol){
+		return;
+	}
+	if(ground_type == 1 && position.x <  width - ground.maxpeakHeight - tol){
+		return;
+	}
+	if(ground_type == 2 && position.y >  ground.maxpeakHeight + tol){
+		return;
+	}
+	if(ground_type == 3 && position.x >  ground.maxpeakHeight + tol){
+		return;
+	}    
+	seg = ground.getSegmentNum();
     for (int i=0; i<seg; i++){
-      checkGroundCollision(ground.getSegment(i),ground.getGroundType());
+      checkGroundCollision(ground.getSegment(i), ground_type);
     }
   }
 
@@ -992,6 +1039,10 @@ public void draw_stage(int Stage){
           HPMax+= 5;
           hippo.HP = HPMax;
           hippo.damping += 0.01f;
+          hippo.velocity.x += hippo.velocity.x*0.25;
+          hippo.velocity.y += hippo.velocity.y*0.25;
+          hippo.following = true;
+          hippo.following_spd = following_spd_start;
         }
         StageStandard();
       break;
@@ -1000,6 +1051,9 @@ public void draw_stage(int Stage){
             HPMax+= 5;
             hippo.HP = HPMax;
             hippo.damping += 0.01f;
+            hippo.velocity.x += hippo.velocity.x*0.25;
+            hippo.velocity.y += hippo.velocity.y*0.25;
+            hippo.following_spd += 0.001;
         }
         StageStandard();
       break;
@@ -1008,6 +1062,9 @@ public void draw_stage(int Stage){
             HPMax+= 5;
             hippo.HP = HPMax;
             hippo.damping += 0.01f;
+            hippo.velocity.x += hippo.velocity.x*0.25;
+            hippo.velocity.y += hippo.velocity.y*0.25;
+            hippo.following_spd += 0.001;
         }
         StageStandard();
       break; 
@@ -1016,10 +1073,67 @@ public void draw_stage(int Stage){
 	            HPMax+= 5;
 	            hippo.HP = HPMax;
 	            hippo.damping += 0.01f;
+	            hippo.velocity.x += hippo.velocity.x*0.25;
+	            hippo.velocity.y += hippo.velocity.y*0.25;
+	            hippo.following_spd += 0.001;
 	        }
 	        StageStandard();
 	    break;
-    case 6:
+   case 6:
+	      if(!Stage_inter){
+	            HPMax+= 5;
+	            hippo.HP = HPMax;
+	            hippo.damping += 0.01f;
+	            hippo.velocity.x += hippo.velocity.x*0.25;
+	            hippo.velocity.y += hippo.velocity.y*0.25;
+	            hippo.following_spd += 0.001;
+	        }
+	        StageStandard();
+	    break;
+   case 7:
+	      if(!Stage_inter){
+	            HPMax+= 5;
+	            hippo.HP = HPMax;
+	            hippo.damping += 0.01f;
+	            hippo.velocity.x += hippo.velocity.x*0.25;
+	            hippo.velocity.y += hippo.velocity.y*0.25;
+	            hippo.following_spd += 0.001;
+	        }
+	        StageStandard();
+	    break;
+   case 8:
+	      if(!Stage_inter){
+	            HPMax+= 5;
+	            hippo.HP = HPMax;
+	            hippo.damping += 0.01f;
+	            hippo.velocity.x += hippo.velocity.x*0.25;
+	            hippo.velocity.y += hippo.velocity.y*0.25;
+	            hippo.following_spd += 0.001;
+	        }
+	        StageStandard();
+	    break;
+   case 9:
+	      if(!Stage_inter){
+	            HPMax+= 5;
+	            hippo.HP = HPMax;
+	            hippo.damping += 0.01f;
+	            hippo.velocity.x += hippo.velocity.x*0.25;
+	            hippo.velocity.y += hippo.velocity.y*0.25;
+	            hippo.following_spd += 0.001;
+	        }
+	        StageStandard();
+	    break;
+   case 10:
+	      if(!Stage_inter){
+	            HPMax+= 5;
+	            hippo.HP = HPMax;
+	            hippo.damping += 0.01f;
+	            hippo.velocity.x += hippo.velocity.x*0.25;
+	            hippo.velocity.y += hippo.velocity.y*0.25;
+	        }
+	        StageStandard();
+	    break;
+    case 11:
       GameState = 0;
        background(0, 0, 0);  
        textFont(Msgfont,64);

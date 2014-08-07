@@ -1,0 +1,6 @@
+/build/
+
+# OS generated files #
+######################
+.DS_Store*
+Thumbs.db

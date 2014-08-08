@@ -1,0 +1,51 @@
+a-->   <--b
+
+time to hit: Infinity		a a
+time to hit: 1.9			a b		e1	1.9
+dtX: 3.9					a RW	e2
+dtY: Infinity				
+time to hit: 1.9			b a		e3	1.9
+time to hit: Infinity		b b
+dtX: 3.9					b LW	e4
+dtY: Infinity
+startTime 0.125
+
+<--a  b-->
+
+time to hit: Infinity		a a
+time to hit: Infinity		a b
+dtX: 1.0260098975716176		a LW	e5	2.93
+dtY: Infinity
+time to hit: Infinity		b a
+time to hit: Infinity		b b
+dtX: 1.0260098975716174		b RW	e6	2.93
+dtY: Infinity
+time: 1.904
+e.etime: 1.9
+e.isValid()false			original b hit a invalid event	e3 invalid
+e.etime: 2.930009897571617	a hit LW valid event			e5 valid
+e.isValid()true
+
+a hit LW
+
+time to hit: NaN			a a
+time to hit: Infinity		a b
+dtX: 2.1746629071239205		a RW	e7	5.11166
+dtY: Infinity			
+time: 2.937
+e.etime: 2.9300098975716176	 b hit RW valid event		e6 valid
+e.isValid()true
+
+a-->   <--b
+
+time to hit: Infinity		a a
+time to hit: 1.0237824835999518	a b		e7 3.976	
+dtX: 2.1746629071239223		b LW		e8 5.12766
+dtY: Infinity
+time: 2.953
+e.etime: 3.9				origin a RW 				e2 invalid
+e.isValid()false
+e.etime: 3.9				origin b LW					e4 invalid
+e.isValid()false
+e.etime: 3.9767824835999517	a hit b						e7 valid
+e.isValid()true

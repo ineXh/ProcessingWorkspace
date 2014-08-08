@@ -31,7 +31,7 @@ public class Particle {
         vy     = random(500);//0.01 * (Math.random() - 0.5);
         println("vy:" + vy);
         radius = 10;
-        mass   = 0.5;
+        mass   = 1;
         //color  = Color.BLACK;
     }
 
@@ -88,19 +88,39 @@ public class Particle {
 
     // update velocities upon collision between this particle and that particle
     public void bounceOff(Particle that) {
-        double damping = 1.0;
+        double damping = 1;
         double dx  = that.rx - this.rx;
+        println("dx :" + dx);
         double dy  = that.ry - this.ry;
+        println("dy :" + dy);
+        
+         double dist = this.radius + that.radius;   // distance between particle centers at collison
+        println("dist :" + dist);
+        while(mag((float)dx, (float)dy) > dist){
+          dx = dx* 0.99;
+          dy = dy* 0.99;
+        }
+        //if(dx > dist) dx = dist;
+        //if(dy > dist) dy = dist;
+        
+        
         double dvx = that.vx - this.vx;
+        println("dvx :" + dvx);
         double dvy = that.vy - this.vy;
+        println("dvy :" + dvy);
         double dvdr = dx*dvx + dy*dvy;             // dv dot dr
-        double dist = this.radius + that.radius;   // distance between particle centers at collison
-
+        println("dvdr :" + dvdr);
+        
+       
+        
         // normal force F, and in x and y directions
         double F = 2 * this.mass * that.mass * dvdr / ((this.mass + that.mass) * dist);
+        println("F :" + F);
         double fx = F * dx / dist;
+        println("fx :" + fx);
         double fy = F * dy / dist;
-
+        println("fy :" + fy);
+        
         // update velocities according to normal force
         this.vx += fx / this.mass*damping;
         this.vy += fy / this.mass*damping;

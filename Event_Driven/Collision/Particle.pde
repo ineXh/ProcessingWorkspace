@@ -5,34 +5,34 @@ public class Particle {
     public double vx, vy;    // velocity
     private double radius;    // radius
     private double mass;      // mass
-    //private Color color;      // color
+    private Color clr;      // color
     private int count;        // number of collisions so far
 
 
     // create a new particle with given parameters        
-    public Particle(double rx, double ry, double vx, double vy, double radius, double mass){//, Color color) {
+    public Particle(double rx, double ry, double vx, double vy, double radius, double mass, Color clr) {
         this.vx = vx;
         this.vy = vy;
         this.rx = rx;
         this.ry = ry;
         this.radius = radius;
         this.mass   = mass;
-        //this.color  = color;
+        this.clr  = clr;
     }
          
     // create a random particle in the unit box (overlaps not checked)
     public Particle() {
         rx     = random(width);//Math.random();
-        println("rx:" + rx);
+        //println("rx:" + rx);
         ry     = random(height);//Math.random();
-        println("ry:" + ry);
+        //println("ry:" + ry);
         vx     = random(500);//0.01 * (Math.random() - 0.5);
-        println("vx:" + vx);
+        //println("vx:" + vx);
         vy     = random(500);//0.01 * (Math.random() - 0.5);
-        println("vy:" + vy);
+        //println("vy:" + vy);
         radius = 10;
         mass   = 1;
-        //color  = Color.BLACK;
+        clr  = new Color((int)random(255), (int)random(255), (int)random(255));//Color.BLACK;
     }
 
     // updates position
@@ -43,7 +43,7 @@ public class Particle {
 
     // draw the particle
     public void draw() {
-      fill(255,0,0);
+      fill(clr.R,clr.G,clr.B);
       ellipse((float)rx,(float)ry,(float)radius*2,(float)radius*2);
         //StdDraw.setPenColor(color);
         //StdDraw.filledCircle(rx, ry, radius);
@@ -90,36 +90,38 @@ public class Particle {
     public void bounceOff(Particle that) {
         double damping = 1;
         double dx  = that.rx - this.rx;
-        println("dx :" + dx);
+        //println("that.rx :" + that.rx);
+        //println("this.rx :" + this.rx);
+        //println("dx :" + dx);
         double dy  = that.ry - this.ry;
-        println("dy :" + dy);
+        //println("dy :" + dy);
         
          double dist = this.radius + that.radius;   // distance between particle centers at collison
-        println("dist :" + dist);
+        //println("dist :" + dist);
         while(mag((float)dx, (float)dy) > dist){
-          dx = dx* 0.99;
-          dy = dy* 0.99;
+          dx = dx* 0.9999;
+          dy = dy* 0.9999;
         }
         //if(dx > dist) dx = dist;
         //if(dy > dist) dy = dist;
         
         
         double dvx = that.vx - this.vx;
-        println("dvx :" + dvx);
+        //println("dvx :" + dvx);
         double dvy = that.vy - this.vy;
-        println("dvy :" + dvy);
+        //println("dvy :" + dvy);
         double dvdr = dx*dvx + dy*dvy;             // dv dot dr
-        println("dvdr :" + dvdr);
+        //println("dvdr :" + dvdr);
         
        
         
         // normal force F, and in x and y directions
         double F = 2 * this.mass * that.mass * dvdr / ((this.mass + that.mass) * dist);
-        println("F :" + F);
+        //println("F :" + F);
         double fx = F * dx / dist;
-        println("fx :" + fx);
+        //println("fx :" + fx);
         double fy = F * dy / dist;
-        println("fy :" + fy);
+        //println("fy :" + fy);
         
         // update velocities according to normal force
         this.vx += fx / this.mass*damping;

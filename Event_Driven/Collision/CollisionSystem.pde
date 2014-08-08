@@ -1,14 +1,17 @@
 public class CollisionSystem { //<>//
   private MinPQ<Event> pq;        // the priority queue
   private double t  = 0.0;        // simulation clock time
+  private double dt = 0.01;
   private double hz = 1;        // number of redraw events per clock tick
+  private double limit = 10000;
   private Particle[] particles;   // the array of particles
   private Event e;
 
     // create a new collision system with the given set of particles
   public CollisionSystem(Particle[] particles) {
     this.particles = particles;
-    simulate_ahead(10000);//double limit)
+    pq = new MinPQ<Event>(); //<>//
+    simulate_ahead(t + limit);//double limit)
   }
 
   // updates priority queue with all new events for particle a
@@ -18,7 +21,7 @@ public class CollisionSystem { //<>//
     // particle-particle collisions
     for (int i = 0; i < particles.length; i++) {
       double dt = a.timeToHit(particles[i]);
-      println("time to hit: " + dt);
+      //println("time to hit: " + dt);
       if (t + dt <= limit)
         pq.insert(new Event(t + dt, a, particles[i]));
     }
@@ -45,13 +48,13 @@ public class CollisionSystem { //<>//
       
     }
     //StdDraw.show(20);
-    //if (time < limit) {
-    //  pq.insert(new Event(time + 1.0 / hz, null, null));
-    //}
+    if (time < limit) {
+      pq.insert(new Event(t + dt, null, null));
+    }
   }
   public void simulate_ahead(double limit){
     // initialize PQ with collision events and redraw event
-    pq = new MinPQ<Event>(); //<>//
+    
     for (int i = 0; i < particles.length; i++) {
       predict(particles[i], limit);
     }
@@ -66,63 +69,64 @@ public class CollisionSystem { //<>//
   /********************************************************************************
    *  Event based simulation for limit seconds
    ********************************************************************************/
-  public void simulate(double time, double dt, double limit) {
-    t = t + dt;
-    //println("pq.size(): " + pq.size());
-    // the main event-driven simulation loop
-    //if (!pq.isEmpty ()) { 
+  public void simulate(){//double time, double dt, double limit) {
+    
+    /*if(pq.isEmpty()){
+      for (int i = 0; i < particles.length; i++) {
+        predict(particles[i], limit);
+      }
+    }*/
 
-      // get impending event, discard if invalidated
-      //Event e = pq.delMin();
-      //if (!e.isValid()) return;//continue;
-      Particle a = e.a;
-      Particle b = e.b;
-      //println("a: " + a);
+    Particle a = e.a;
+    Particle b = e.b;
+      
       // physical collision, so update positions, and then simulation clock
-      for (int i = 0; i < particles.length; i++){
-      //println("e.t: " + e.time);
-      //println("time: " + time);
-      //println("e.time > time : " + (e.time > time));
-        if(e.etime > t + dt){
-          particles[i].move(dt);//dt);//e.time - t);          
-          //println("particle " + i + " move");
-        }else{
+      for (int i = 0; i < particles.length; i++){      
+        //if(e.etime >= t - dt){
+          particles[i].move(dt);
+         // println("particle " + i + " :" + particles[i].rx); 
+        /*//}/*else{
           println("time: " + t);
           println("e.etime: " + e.etime);
-          println("dt: " + dt);
-          //println("a.rx: " + a.rx);
-          //println("b.rx: " + b.rx);
+          //println("dt: " + dt);
           particles[i].move(e.etime - t);//dt);//e.etime - time);
-          //println("a.rx: " + a.rx);
-          //println("b.rx: " + b.rx);         
-        }
+          println("particle " + i + " :" + particles[i].rx);         
+        }*/
         particles[i].draw();
       }      
       //println("e.t: " + t);
       // process event
-      if(e.etime< t + dt){
-        println("time: " + t);
-        t = e.etime;
-        if      (a != null && b != null) a.bounceOff(b);              // particle-particle collision
-        else if (a != null && b == null) a.bounceOffVerticalWall();   // particle-wall collision
-        else if (a == null && b != null) b.bounceOffHorizontalWall(); // particle-wall collision
-        else if (a == null && b == null) redraw(limit);               // redraw event
-      
-        // update the priority queue with new collisions involving a or b
-        predict(a, limit);
-        predict(b, limit);
-        //println("time: " + time);
-        while(!pq.isEmpty ()) {
-          e = pq.delMin();
-          //println("e.etime: " + e.etime);
-          //println("e.isValid()" + e.isValid()); 
-          if (e.isValid()) return;
-          else if(!e.isValid()) continue;//return;//continue;
+      if(e.etime <= t){
+        while(e.etime <= t){
+           // t = e.etime;
+         // println("time: " + t);
+          //t = e.etime - dt;
+          if      (a != null && b != null) a.bounceOff(b);              // particle-particle collision
+          else if (a != null && b == null) a.bounceOffVerticalWall();   // particle-wall collision
+          else if (a == null && b != null) b.bounceOffHorizontalWall(); // particle-wall collision
+          else if (a == null && b == null) redraw(limit);               // redraw event
+        
+          // update the priority queue with new collisions involving a or b
+          predict(a, limit);
+          predict(b, limit);
+          //println("time: " + time);
           
+          while(!pq.isEmpty ()){
+            e = pq.delMin();
+            //println("e.etime: " + e.etime);
+            //println("e.isValid()" + e.isValid()); 
+            if (e.isValid()){
+              if(e.etime <= t){
+              }else{
+                t = t + dt;
+                return;
+              }
+            }else if(!e.isValid()) continue;//return;//continue;            
+          }
         }
         println("a");
       }
-    //}
+      t = t + dt;
   }
 
   private class Event implements Comparable<Event> {

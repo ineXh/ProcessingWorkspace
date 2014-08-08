@@ -1,8 +1,8 @@
 public class Particle {
     private static final double INFINITY = Double.POSITIVE_INFINITY;
 
-    private double rx, ry;    // position
-    private double vx, vy;    // velocity
+    public double rx, ry;    // position
+    public double vx, vy;    // velocity
     private double radius;    // radius
     private double mass;      // mass
     //private Color color;      // color
@@ -22,11 +22,15 @@ public class Particle {
          
     // create a random particle in the unit box (overlaps not checked)
     public Particle() {
-        rx     = Math.random();
-        ry     = Math.random();
-        vx     = 0.01 * (Math.random() - 0.5);
-        vy     = 0.01 * (Math.random() - 0.5);
-        radius = 0.01;
+        rx     = random(width);//Math.random();
+        println("rx:" + rx);
+        ry     = random(height);//Math.random();
+        println("ry:" + ry);
+        vx     = random(500);//0.01 * (Math.random() - 0.5);
+        println("vx:" + vx);
+        vy     = random(500);//0.01 * (Math.random() - 0.5);
+        println("vy:" + vy);
+        radius = 10;
         mass   = 0.5;
         //color  = Color.BLACK;
     }
@@ -40,7 +44,7 @@ public class Particle {
     // draw the particle
     public void draw() {
       fill(255,0,0);
-      ellipse((float)rx,(float)ry,(float)radius,(float)radius);
+      ellipse((float)rx,(float)ry,(float)radius*2,(float)radius*2);
         //StdDraw.setPenColor(color);
         //StdDraw.filledCircle(rx, ry, radius);
     }
@@ -84,7 +88,7 @@ public class Particle {
 
     // update velocities upon collision between this particle and that particle
     public void bounceOff(Particle that) {
-        double damping = 0.8;
+        double damping = 1.0;
         double dx  = that.rx - this.rx;
         double dy  = that.ry - this.ry;
         double dvx = that.vx - this.vx;
